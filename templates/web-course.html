@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Web Development - AI Learn</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        nav {
+            background: #1f2937;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 24px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .course-header {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        .course-header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .course-header p {
+            font-size: 18px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .progress-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .progress-box strong {
+            font-size: 18px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 15px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #2563eb;
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .learning-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+        }
+
+        .lessons {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            height: fit-content;
+        }
+
+        .lessons h3 {
+            margin-bottom: 15px;
+            font-size: 21px;
+        }
+
+        .lesson-btn {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #eef2ff;
+            color: #1e3a8a;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .lesson-btn:hover {
+            background: #dbeafe;
+        }
+
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            min-height: 500px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .content h2 {
+            color: #1d4ed8;
+            margin-bottom: 18px;
+        }
+
+        .content h3 {
+            color: #374151;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .content p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .content ul {
+            margin: 15px 0 20px 25px;
+        }
+
+        .content li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .code-box {
+            background: #111827;
+            color: #f9fafb;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 15px 0 20px 0;
+            overflow-x: auto;
+            font-family: Consolas, monospace;
+        }
+
+        .complete-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .complete-btn:hover {
+            background: #1d4ed8;
+        }
+
+        #completeMessage {
+            color: #16a34a;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .navigation button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #374151;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .navigation button:hover {
+            background: #111827;
+        }
+
+        .navigation button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .quiz {
+            padding: 10px 0;
+        }
+
+        .quiz h2 {
+            margin-bottom: 20px;
+        }
+
+        #quizQuestion {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #111827;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #f9fafb;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .quiz-option:hover {
+            background: #eff6ff;
+        }
+
+        .quiz-option:disabled {
+            cursor: not-allowed;
+        }
+
+        #quizResult {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #quizResult h2 {
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        #quizResult p {
+            font-size: 17px;
+        }
+
+        .completion {
+            background: #ecfdf5;
+            border: 2px solid #22c55e;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .completion h2 {
+            color: #16a34a !important;
+            margin-bottom: 10px;
+        }
+
+        .completion h3 {
+            color: #15803d;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 800px) {
+
+            .learning-layout {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            nav h2 {
+                font-size: 20px;
+            }
+
+            nav a {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+
+            .course-header h1 {
+                font-size: 30px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>🌐 AI Learn</h2>
+
+    <div>
+
+        <a href="index.html">Home</a>
+
+        <a href="dashboard.html">Dashboard</a>
+
+    </div>
+
+</nav>
+
+
+<div class="course-header">
+
+    <h1>🌐 Web Development</h1>
+
+    <p>
+        Learn Web Development from basics to important concepts
+    </p>
+
+</div>
+
+
+<div class="container">
+
+    <div class="progress-box">
+
+        <strong>
+            Course Progress:
+            <span id="progressText">0%</span>
+        </strong>
+
+        <div class="progress-bar">
+
+            <div class="progress-fill"
+                 id="progressFill">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="learning-layout">
+
+
+        <div class="lessons">
+
+            <h3>📚 Lessons</h3>
+
+            <button class="lesson-btn"
+                    onclick="showLesson(0)">
+                1. Introduction to Web Development
+            </button>
+
+            <button class="lesson-btn"
+                    onclick="showLesson(1)">
+                2. HTML Basics
+            </button>
+
+            <button class="lesson-btn"
+                    onclick="showLesson(2)">
+                3. CSS Basics
+            </button>
+
+            <button class="lesson-btn"
+                    onclick="showLesson(3)">
+                4. JavaScript Basics
+            </button>
+
+            <button class="lesson-btn"
+                    onclick="showLesson(4)">
+                5. Responsive Web Design
+            </button>
+
+            <button class="lesson-btn"
+                    onclick="showLesson(5)">
+                6. Forms and Web Elements
+            </button>
+
+            <button class="lesson-btn"
+                    onclick="showLesson(6)">
+                7. Web Development Projects
+            </button>
+
+            <button class="lesson-btn"
+                    onclick="showLesson(7)">
+                8. Web Development Quiz
+            </button>
+
+        </div>
+
+
+        <div class="content"
+             id="lessonContent">
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+const lessons = [
+
+
+{
+    title: "Introduction to Web Development",
+
+    content: `
+
+    <h2>🌐 Introduction to Web Development</h2>
+
+    <p>
+        Web Development is the process of creating and maintaining
+        websites and web applications that run on the internet.
+    </p>
+
+    <p>
+        A web developer uses different technologies to create
+        attractive, interactive and useful websites.
+    </p>
+
+    <h3>Major Areas of Web Development</h3>
+
+    <ul>
+
+        <li>
+            <strong>Frontend Development</strong> -
+            The part of a website that users see and interact with.
+        </li>
+
+        <li>
+            <strong>Backend Development</strong> -
+            The server-side part that handles data and logic.
+        </li>
+
+        <li>
+            <strong>Full Stack Development</strong> -
+            Combination of frontend and backend development.
+        </li>
+
+    </ul>
+
+    <h3>Popular Web Technologies</h3>
+
+    <ul>
+
+        <li>HTML</li>
+
+        <li>CSS</li>
+
+        <li>JavaScript</li>
+
+        <li>Python</li>
+
+        <li>Node.js</li>
+
+    </ul>
+
+    <button class="complete-btn"
+            onclick="markCompleted()">
+        Mark as Completed
+    </button>
+
+    <div id="completeMessage"></div>
+
+    `
+},
+
+
+{
+    title: "HTML Basics",
+
+    content: `
+
+    <h2>📝 HTML Basics</h2>
+
+    <p>
+        HTML stands for HyperText Markup Language.
+        It is used to create the structure of web pages.
+    </p>
+
+    <h3>Basic HTML Example</h3>
+
+    <div class="code-box">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+
+    &lt;p&gt;
+        Welcome to my website.
+    &lt;/p&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+    </div>
+
+    <h3>Important HTML Elements</h3>
+
+    <ul>
+
+        <li>
+            <strong>&lt;h1&gt;</strong> -
+            Heading
+        </li>
+
+        <li>
+            <strong>&lt;p&gt;</strong> -
+            Paragraph
+        </li>
+
+        <li>
+            <strong>&lt;a&gt;</strong> -
+            Link
+        </li>
+
+        <li>
+            <strong>&lt;img&gt;</strong> -
+            Image
+        </li>
+
+        <li>
+            <strong>&lt;button&gt;</strong> -
+            Button
+        </li>
+
+        <li>
+            <strong>&lt;form&gt;</strong> -
+            Form
+        </li>
+
+    </ul>
+
+    <button class="complete-btn"
+            onclick="markCompleted()">
+        Mark as Completed
+    </button>
+
+    <div id="completeMessage"></div>
+
+    `
+},
+
+
+{
+    title: "CSS Basics",
+
+    content: `
+
+    <h2>🎨 CSS Basics</h2>
+
+    <p>
+        CSS stands for Cascading Style Sheets.
+        It is used to design and style HTML web pages.
+    </p>
+
+    <p>
+        CSS can control colors, fonts, spacing,
+        layouts, borders, backgrounds and many other
+        visual properties.
+    </p>
+
+    <h3>Basic CSS Example</h3>
+
+    <div class="code-box">
+body {
+    background: white;
+    color: black;
+}
+
+h1 {
+    color: blue;
+    font-size: 32px;
+}
+    </div>
+
+    <h3>Important CSS Concepts</h3>
+
+    <ul>
+
+        <li>Colors</li>
+
+        <li>Fonts</li>
+
+        <li>Margins</li>
+
+        <li>Padding</li>
+
+        <li>Borders</li>
+
+        <li>Flexbox</li>
+
+        <li>Grid</li>
+
+    </ul>
+
+    <h3>Why CSS is Important</h3>
+
+    <p>
+        HTML creates the structure of a website,
+        while CSS makes the website attractive and
+        user-friendly.
+    </p>
+
+    <button class="complete-btn"
+            onclick="markCompleted()">
+        Mark as Completed
+    </button>
+
+    <div id="completeMessage"></div>
+
+    `
+},
+
+
+{
+    title: "JavaScript Basics",
+
+    content: `
+
+    <h2>⚡ JavaScript Basics</h2>
+
+    <p>
+        JavaScript is a programming language used to make
+        web pages interactive and dynamic.
+    </p>
+
+    <h3>Simple JavaScript Example</h3>
+
+    <div class="code-box">
+&lt;script&gt;
+
+let name = "AI Learn";
+
+alert("Hello " + name);
+
+&lt;/script&gt;
+    </div>
+
+    <h3>JavaScript Can Be Used For</h3>
+
+    <ul>
+
+        <li>Button actions</li>
+
+        <li>Form validation</li>
+
+        <li>Dynamic content</li>
+
+        <li>Animations</li>
+
+        <li>Interactive web applications</li>
+
+        <li>API communication</li>
+
+    </ul>
+
+    <h3>Common JavaScript Concepts</h3>
+
+    <ul>
+
+        <li>Variables</li>
+
+        <li>Functions</li>
+
+        <li>Arrays</li>
+
+        <li>Objects</li>
+
+        <li>Events</li>
+
+        <li>DOM Manipulation</li>
+
+    </ul>
+
+    <button class="complete-btn"
+            onclick="markCompleted()">
+        Mark as Completed
+    </button>
+
+    <div id="completeMessage"></div>
+
+    `
+},
+
+
+{
+    title: "Responsive Web Design",
+
+    content: `
+
+    <h2>📱 Responsive Web Design</h2>
+
+    <p>
+        Responsive Web Design means creating websites
+        that work properly on different screen sizes.
+    </p>
+
+    <p>
+        A responsive website can automatically adjust its
+        layout for computers, tablets and mobile phones.
+    </p>
+
+    <h3>Important Techniques</h3>
+
+    <ul>
+
+        <li>Flexible layouts</li>
+
+        <li>CSS Flexbox</li>
+
+        <li>CSS Grid</li>
+
+        <li>Media Queries</li>
+
+        <li>Responsive images</li>
+
+    </ul>
+
+    <h3>Example Media Query</h3>
+
+    <div class="code-box">
+@media (max-width: 600px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        width: 95%;
+    }
+
+}
+    </div>
+
+    <p>
+        Responsive design improves the user experience
+        across different devices.
+    </p>
+
+    <button class="complete-btn"
+            onclick="markCompleted()">
+        Mark as Completed
+    </button>
+
+    <div id="completeMessage"></div>
+
+    `
+},
+
+
+{
+    title: "Forms and Web Elements",
+
+    content: `
+
+    <h2>📋 Forms and Web Elements</h2>
+
+    <p>
+        HTML forms are used to collect information from users.
+    </p>
+
+    <h3>Common Form Elements</h3>
+
+    <ul>
+
+        <li>Text input</li>
+
+        <li>Password input</li>
+
+        <li>Email input</li>
+
+        <li>Radio buttons</li>
+
+        <li>Checkboxes</li>
+
+        <li>Dropdown lists</li>
+
+        <li>Submit buttons</li>
+
+    </ul>
+
+    <h3>Example Form</h3>
+
+    <div class="code-box">
+&lt;form&gt;
+
+    &lt;label&gt;Name&lt;/label&gt;
+
+    &lt;input type="text"&gt;
+
+    &lt;label&gt;Email&lt;/label&gt;
+
+    &lt;input type="email"&gt;
+
+    &lt;button type="submit"&gt;
+        Submit
+    &lt;/button&gt;
+
+&lt;/form&gt;
+    </div>
+
+    <p>
+        Forms are commonly used for registration,
+        login, feedback and data collection.
+    </p>
+
+    <button class="complete-btn"
+            onclick="markCompleted()">
+        Mark as Completed
+    </button>
+
+    <div id="completeMessage"></div>
+
+    `
+},
+
+
+{
+    title: "Web Development Projects",
+
+    content: `
+
+    <h2>🚀 Web Development Projects</h2>
+
+    <p>
+        Building projects is one of the best ways to learn
+        Web Development.
+    </p>
+
+    <h3>Beginner Projects</h3>
+
+    <ul>
+
+        <li>Personal Portfolio</li>
+
+        <li>Simple Calculator</li>
+
+        <li>To-Do List</li>
+
+        <li>Login Page</li>
+
+        <li>Registration Form</li>
+
+    </ul>
+
+    <h3>Intermediate Projects</h3>
+
+    <ul>
+
+        <li>Weather Application</li>
+
+        <li>Online Quiz Application</li>
+
+        <li>Blog Website</li>
+
+        <li>Student Management System</li>
+
+        <li>E-Commerce Website</li>
+
+    </ul>
+
+    <h3>Project Development Steps</h3>
+
+    <ul>
+
+        <li>Plan the project</li>
+
+        <li>Create HTML structure</li>
+
+        <li>Add CSS styling</li>
+
+        <li>Add JavaScript functionality</li>
+
+        <li>Test the website</li>
+
+        <li>Improve the user experience</li>
+
+    </ul>
+
+    <p>
+        Practical projects help developers understand
+        how different web technologies work together.
+    </p>
+
+    <button class="complete-btn"
+            onclick="markCompleted()">
+        Mark as Completed
+    </button>
+
+    <div id="completeMessage"></div>
+
+    `
+},
+
+
+{
+    title: "Web Development Quiz",
+
+    content: `
+
+    <div class="quiz">
+
+        <h2>🌐 Web Development Quiz</h2>
+
+        <p id="quizQuestion"></p>
+
+        <div id="quizOptions"></div>
+
+        <button class="complete-btn"
+                id="nextQuizBtn"
+                onclick="nextQuizQuestion()"
+                style="display:none;">
+            Next Question
+        </button>
+
+        <div id="quizResult"></div>
+
+    </div>
+
+    `
+}
+
+];
+
+
+const quizQuestions = [
+
+
+{
+    question:
+        "Which language is used to create the structure of a web page?",
+
+    options: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Python"
+    ],
+
+    answer: 0
+},
+
+
+{
+    question:
+        "Which technology is mainly used to style web pages?",
+
+    options: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "SQL"
+    ],
+
+    answer: 1
+},
+
+
+{
+    question:
+        "Which language is commonly used to make web pages interactive?",
+
+    options: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "XML"
+    ],
+
+    answer: 2
+},
+
+
+{
+    question:
+        "Which technique helps a website work on different screen sizes?",
+
+    options: [
+        "Responsive Web Design",
+        "Database Design",
+        "File Compression",
+        "Data Mining"
+    ],
+
+    answer: 0
+},
+
+
+{
+    question:
+        "Which HTML element is commonly used to create a hyperlink?",
+
+    options: [
+        "<p>",
+        "<img>",
+        "<a>",
+        "<h1>"
+    ],
+
+    answer: 2
+}
+
+];
+
+
+let currentLesson = 0;
+
+let currentQuizQuestion = 0;
+
+let quizScore = 0;
+
+let quizAnswered = false;
+
+
+function showLesson(index) {
+
+    currentLesson = index;
+
+    const lessonContent =
+        document.getElementById("lessonContent");
+
+    lessonContent.innerHTML =
+        lessons[index].content;
+
+
+    if (index === lessons.length - 1) {
+
+        loadQuizQuestion();
+
+    }
+
+
+    updateNavigation();
+
+}
+
+
+function updateNavigation() {
+
+    const content =
+        document.getElementById("lessonContent");
+
+    const oldNavigation =
+        document.querySelector(".navigation");
+
+    if (oldNavigation) {
+
+        oldNavigation.remove();
+
+    }
+
+
+    const navigation =
+        document.createElement("div");
+
+    navigation.className = "navigation";
+
+
+    navigation.innerHTML = `
+
+        <button onclick="previousLesson()"
+                ${currentLesson === 0 ? "disabled" : ""}>
+            ← Previous
+        </button>
+
+        <button onclick="nextLesson()"
+                ${currentLesson === lessons.length - 1 ? "disabled" : ""}>
+            Next →
+        </button>
+
+    `;
+
+
+    content.appendChild(navigation);
+
+}
+
+
+function markCompleted() {
+
+    let completedLessons =
+        JSON.parse(
+            localStorage.getItem("webCompletedLessons") || "[]"
+        );
+
+
+    if (!completedLessons.includes(currentLesson)) {
+
+        completedLessons.push(currentLesson);
+
+    }
+
+
+    localStorage.setItem(
+        "webCompletedLessons",
+        JSON.stringify(completedLessons)
+    );
+
+
+    document.getElementById("completeMessage").innerHTML =
+        "✅ Lesson completed successfully!";
+
+
+    updateProgress();
+
+}
+
+
+function updateProgress() {
+
+    const completedLessons =
+        JSON.parse(
+            localStorage.getItem("webCompletedLessons") || "[]"
+        );
+
+
+    const totalLessons =
+        lessons.length - 1;
+
+
+    let progress =
+        Math.round(
+            (completedLessons.length / totalLessons) * 100
+        );
+
+
+    if (progress > 100) {
+
+        progress = 100;
+
+    }
+
+
+    document.getElementById("progressText").innerText =
+        progress + "%";
+
+
+    document.getElementById("progressFill").style.width =
+        progress + "%";
+
+}
+
+
+function nextLesson() {
+
+    if (currentLesson < lessons.length - 1) {
+
+        showLesson(currentLesson + 1);
+
+    }
+
+}
+
+
+function previousLesson() {
+
+    if (currentLesson > 0) {
+
+        showLesson(currentLesson - 1);
+
+    }
+
+}
+
+
+function loadQuizQuestion() {
+
+    const question =
+        quizQuestions[currentQuizQuestion];
+
+
+    quizAnswered = false;
+
+
+    document.getElementById("quizQuestion")
+        .innerText =
+        (currentQuizQuestion + 1) +
+        ". " +
+        question.question;
+
+
+    const optionsContainer =
+        document.getElementById("quizOptions");
+
+
+    optionsContainer.innerHTML = "";
+
+
+    question.options.forEach(
+        (option, index) => {
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "quiz-option";
+
+
+            button.innerText =
+                option;
+
+
+            button.onclick =
+                () => checkQuizAnswer(index);
+
+
+            optionsContainer.appendChild(button);
+
+        }
+    );
+
+
+    document.getElementById("nextQuizBtn")
+        .style.display = "none";
+
+}
+
+
+function checkQuizAnswer(selectedAnswer) {
+
+    if (quizAnswered) {
+
+        return;
+
+    }
+
+
+    quizAnswered = true;
+
+
+    const question =
+        quizQuestions[currentQuizQuestion];
+
+
+    const options =
+        document.querySelectorAll(".quiz-option");
+
+
+    options.forEach(
+        (button, index) => {
+
+            button.disabled = true;
+
+
+            if (index === question.answer) {
+
+                button.style.background =
+                    "#28a745";
+
+                button.style.color =
+                    "white";
+
+            }
+
+
+            if (
+                index === selectedAnswer &&
+                selectedAnswer !== question.answer
+            ) {
+
+                button.style.background =
+                    "#dc3545";
+
+                button.style.color =
+                    "white";
+
+            }
+
+        }
+    );
+
+
+    if (selectedAnswer === question.answer) {
+
+        quizScore++;
+
+    }
+
+
+    document.getElementById("nextQuizBtn")
+        .style.display = "block";
+
+}
+
+
+function nextQuizQuestion() {
+
+    currentQuizQuestion++;
+
+
+    if (
+        currentQuizQuestion <
+        quizQuestions.length
+    ) {
+
+        loadQuizQuestion();
+
+    } else {
+
+        showQuizResult();
+
+    }
+
+}
+
+
+function showQuizResult() {
+
+    document.getElementById("quizQuestion")
+        .innerText =
+        "🎉 Quiz Completed!";
+
+
+    document.getElementById("quizOptions")
+        .innerHTML = "";
+
+
+    document.getElementById("nextQuizBtn")
+        .style.display = "none";
+
+
+    document.getElementById("quizResult")
+        .innerHTML = `
+
+        <h2>
+            Your Score: ${quizScore} / ${quizQuestions.length}
+        </h2>
+
+        <p>
+            ${
+                quizScore === quizQuestions.length
+                ? "🏆 Excellent! You got all answers correct!"
+                : "👍 Good job! Keep practicing."
+            }
+        </p>
+
+        ${
+            quizScore === quizQuestions.length
+            ? `
+                <div class="completion">
+
+                    <h2>🎉 Congratulations!</h2>
+
+                    <h3>
+                        Web Development Course Completed!
+                    </h3>
+
+                    <p>
+                        You have successfully completed
+                        all lessons and the quiz. 🏆
+                    </p>
+
+                </div>
+              `
+            : ""
+        }
+
+
+        <button class="complete-btn"
+                onclick="restartQuiz()">
+
+            🔄 Try Again
+
+        </button>
+
+    `;
+
+
+    localStorage.setItem(
+        "webCourseCompleted",
+        "true"
+    );
+
+}
+
+
+function restartQuiz() {
+
+    currentQuizQuestion = 0;
+
+    quizScore = 0;
+
+    quizAnswered = false;
+
+
+    document.getElementById("quizResult")
+        .innerHTML = "";
+
+
+    loadQuizQuestion();
+
+}
+
+
+// ===============================
+// START COURSE
+// ===============================
+
+showLesson(0);
+
+updateProgress();
+
+
+</script>
+
+</body>
+
+</html>

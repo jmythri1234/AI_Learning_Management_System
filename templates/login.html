@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Login - AI Learn</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: white;
+            width: 350px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+        }
+
+        p {
+            text-align: center;
+            color: #666;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+
+            background: #2563eb;
+            color: white;
+
+            border: none;
+            border-radius: 6px;
+
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <h1>AI Learn</h1>
+
+        <p>Login to your account</p>
+
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email">
+
+        <label>Password</label>
+        <input type="password" placeholder="Enter your password">
+
+        <button onclick="login()">Login</button>
+
+    </div>
+
+
+    <script>
+
+        function login() {
+
+            alert("Login successful!");
+            window.location.href="dashboard.html";
+
+        }
+
+    </script>
+
+</body>
+</html>

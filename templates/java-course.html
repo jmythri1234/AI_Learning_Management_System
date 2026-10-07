@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Java Programming - AI Learn</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        nav {
+            background: #111827;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 24px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #fbbf24;
+        }
+
+        .course-header {
+            background: linear-gradient(
+                135deg,
+                #f59e0b,
+                #ea580c
+            );
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        .course-header h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .course-header p {
+            font-size: 18px;
+        }
+
+        .progress-box {
+            background: white;
+            width: 90%;
+            max-width: 1100px;
+            margin: 25px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .progress-box h3 {
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 14px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #f59e0b;
+            transition: 0.4s;
+        }
+
+        .learning-layout {
+            width: 90%;
+            max-width: 1100px;
+            margin: 25px auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+        }
+
+        .lessons {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            height: fit-content;
+        }
+
+        .lessons h3 {
+            margin-bottom: 15px;
+            color: #ea580c;
+        }
+
+        .lesson-btn {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #f3f4f6;
+            text-align: left;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .lesson-btn:hover {
+            background: #fed7aa;
+        }
+
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            min-height: 500px;
+        }
+
+        .content h2 {
+            color: #ea580c;
+            margin-bottom: 18px;
+        }
+
+        .content h3 {
+            margin-top: 22px;
+            margin-bottom: 12px;
+            color: #374151;
+        }
+
+        .content p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .content ul {
+            margin-left: 25px;
+            line-height: 1.8;
+        }
+
+        .code-box {
+            background: #111827;
+            color: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 18px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-family: Consolas, monospace;
+            line-height: 1.6;
+        }
+
+        .complete-btn {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .complete-btn:hover {
+            background: #15803d;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
+        }
+
+        .navigation button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #ea580c;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .navigation button:hover {
+            background: #c2410c;
+        }
+
+        .quiz {
+            margin-top: 20px;
+        }
+
+        .quiz h2 {
+            color: #ea580c;
+        }
+
+        .quiz-question {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            background: #f9fafb;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background: #fed7aa;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .completion {
+            background: #ecfdf5;
+            border: 2px solid #22c55e;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .completion h2 {
+            color: #16a34a;
+            margin-bottom: 10px;
+        }
+
+        .completion h3 {
+            color: #15803d;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .learning-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .course-header h1 {
+                font-size: 30px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ===============================
+     NAVIGATION
+================================ -->
+
+<nav>
+
+    <h2>☕ AI Learn</h2>
+
+    <div>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ===============================
+     COURSE HEADER
+================================ -->
+
+<div class="course-header">
+
+    <h1>☕ Java Programming</h1>
+
+    <p>
+        Learn Java Programming from basics
+        to important concepts
+    </p>
+
+</div>
+
+
+<!-- ===============================
+     PROGRESS
+================================ -->
+
+<div class="progress-box">
+
+    <h3>
+        Course Progress:
+        <span id="progressText">0%</span>
+    </h3>
+
+    <div class="progress-bar">
+
+        <div
+            class="progress-fill"
+            id="progressFill">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===============================
+     LEARNING LAYOUT
+================================ -->
+
+<div class="learning-layout">
+
+
+    <!-- LESSONS -->
+
+    <div class="lessons">
+
+        <h3>
+            📚 Java Lessons
+        </h3>
+
+
+        <button
+            class="lesson-btn"
+            onclick="showLesson(0)">
+
+            1. Introduction to Java
+
+        </button>
+
+
+        <button
+            class="lesson-btn"
+            onclick="showLesson(1)">
+
+            2. Java Syntax and Variables
+
+        </button>
+
+
+        <button
+            class="lesson-btn"
+            onclick="showLesson(2)">
+
+            3. Data Types and Operators
+
+        </button>
+
+
+        <button
+            class="lesson-btn"
+            onclick="showLesson(3)">
+
+            4. Conditional Statements
+
+        </button>
+
+
+        <button
+            class="lesson-btn"
+            onclick="showLesson(4)">
+
+            5. Loops in Java
+
+        </button>
+
+
+        <button
+            class="lesson-btn"
+            onclick="showLesson(5)">
+
+            6. Methods and Classes
+
+        </button>
+
+
+        <button
+            class="lesson-btn"
+            onclick="showLesson(6)">
+
+            7. Object-Oriented Programming
+
+        </button>
+
+
+        <button
+            class="lesson-btn"
+            onclick="showLesson(7)">
+
+            8. Java Quiz
+
+        </button>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+        <div id="lessonContent"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+// ===============================
+// LESSON DATA
+// ===============================
+
+const lessons = [
+
+    {
+
+        title:
+        "Introduction to Java",
+
+        content: `
+
+            <h2>
+                ☕ Introduction to Java
+            </h2>
+
+            <p>
+                Java is a popular,
+                powerful and object-oriented
+                programming language.
+            </p>
+
+            <p>
+                It was developed by
+                Sun Microsystems and is now
+                maintained by Oracle.
+            </p>
+
+            <h3>
+                Why Learn Java?
+            </h3>
+
+            <ul>
+
+                <li>
+                    Easy to learn
+                </li>
+
+                <li>
+                    Object-oriented
+                </li>
+
+                <li>
+                    Platform independent
+                </li>
+
+                <li>
+                    Secure and reliable
+                </li>
+
+                <li>
+                    Widely used in software development
+                </li>
+
+            </ul>
+
+            <h3>
+                First Java Program
+            </h3>
+
+            <div class="code-box">
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        System.out.println("Hello, World!");
+
+    }
+
+}
+
+            </div>
+
+            <p>
+                The
+                <b>main()</b>
+                method is the starting point
+                of a Java program.
+            </p>
+
+        `
+
+    },
+
+
+    {
+
+        title:
+        "Java Syntax and Variables",
+
+        content: `
+
+            <h2>
+                📝 Java Syntax and Variables
+            </h2>
+
+            <p>
+                Java programs follow a specific
+                syntax. Every statement normally
+                ends with a semicolon.
+            </p>
+
+            <h3>
+                Variables
+            </h3>
+
+            <p>
+                A variable is a container used
+                to store data.
+            </p>
+
+            <div class="code-box">
+
+int age = 20;
+
+String name = "Ajay";
+
+double marks = 85.5;
+
+            </div>
+
+            <h3>
+                Example
+            </h3>
+
+            <div class="code-box">
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        int age = 20;
+
+        String name = "Student";
+
+        System.out.println(name);
+
+        System.out.println(age);
+
+    }
+
+}
+
+            </div>
+
+        `
+
+    },
+
+
+    {
+
+        title:
+        "Data Types and Operators",
+
+        content: `
+
+            <h2>
+                🔢 Data Types and Operators
+            </h2>
+
+            <p>
+                Data types define the type of
+                value that a variable can store.
+            </p>
+
+            <h3>
+                Common Data Types
+            </h3>
+
+            <ul>
+
+                <li>
+                    int - Integer numbers
+                </li>
+
+                <li>
+                    double - Decimal numbers
+                </li>
+
+                <li>
+                    char - Single character
+                </li>
+
+                <li>
+                    boolean - true or false
+                </li>
+
+                <li>
+                    String - Text
+                </li>
+
+            </ul>
+
+            <h3>
+                Operators
+            </h3>
+
+            <p>
+                Java supports arithmetic,
+                relational and logical operators.
+            </p>
+
+            <div class="code-box">
+
+int a = 10;
+
+int b = 5;
+
+int sum = a + b;
+
+int difference = a - b;
+
+int product = a * b;
+
+int division = a / b;
+
+System.out.println(sum);
+
+            </div>
+
+        `
+
+    },
+
+
+    {
+
+        title:
+        "Conditional Statements",
+
+        content: `
+
+            <h2>
+                🔀 Conditional Statements
+            </h2>
+
+            <p>
+                Conditional statements are used
+                to make decisions in a program.
+            </p>
+
+            <h3>
+                if Statement
+            </h3>
+
+            <div class="code-box">
+
+int age = 20;
+
+if (age >= 18) {
+
+    System.out.println("Eligible to vote");
+
+}
+
+            </div>
+
+            <h3>
+                if-else Statement
+            </h3>
+
+            <div class="code-box">
+
+int number = 10;
+
+if (number % 2 == 0) {
+
+    System.out.println("Even");
+
+} else {
+
+    System.out.println("Odd");
+
+}
+
+            </div>
+
+            <p>
+                Java also supports
+                <b>else-if</b>
+                and
+                <b>switch</b>
+                statements.
+            </p>
+
+        `
+
+    },
+
+
+    {
+
+        title:
+        "Loops in Java",
+
+        content: `
+
+            <h2>
+                🔁 Loops in Java
+            </h2>
+
+            <p>
+                Loops are used to execute
+                a block of code repeatedly.
+            </p>
+
+            <h3>
+                for Loop
+            </h3>
+
+            <div class="code-box">
+
+for (int i = 1; i <= 5; i++) {
+
+    System.out.println(i);
+
+}
+
+            </div>
+
+            <h3>
+                while Loop
+            </h3>
+
+            <div class="code-box">
+
+int i = 1;
+
+while (i <= 5) {
+
+    System.out.println(i);
+
+    i++;
+
+}
+
+            </div>
+
+            <h3>
+                do-while Loop
+            </h3>
+
+            <div class="code-box">
+
+int i = 1;
+
+do {
+
+    System.out.println(i);
+
+    i++;
+
+} while (i <= 5);
+
+            </div>
+
+        `
+
+    },
+
+
+    {
+
+        title:
+        "Methods and Classes",
+
+        content: `
+
+            <h2>
+                🧩 Methods and Classes
+            </h2>
+
+            <p>
+                A method is a block of code
+                that performs a specific task.
+            </p>
+
+            <h3>
+                Java Method Example
+            </h3>
+
+            <div class="code-box">
+
+public static void greet() {
+
+    System.out.println("Hello!");
+
+}
+
+            </div>
+
+            <h3>
+                Calling a Method
+            </h3>
+
+            <div class="code-box">
+
+public class Main {
+
+    static void greet() {
+
+        System.out.println("Hello Java!");
+
+    }
+
+    public static void main(String[] args) {
+
+        greet();
+
+    }
+
+}
+
+            </div>
+
+            <p>
+                A class is a blueprint used
+                to create objects in Java.
+            </p>
+
+        `
+
+    },
+
+
+    {
+
+        title:
+        "Object-Oriented Programming",
+
+        content: `
+
+            <h2>
+                🏗️ Object-Oriented Programming
+            </h2>
+
+            <p>
+                Java is an object-oriented
+                programming language.
+            </p>
+
+            <h3>
+                Main OOP Concepts
+            </h3>
+
+            <ul>
+
+                <li>
+                    Encapsulation
+                </li>
+
+                <li>
+                    Inheritance
+                </li>
+
+                <li>
+                    Polymorphism
+                </li>
+
+                <li>
+                    Abstraction
+                </li>
+
+            </ul>
+
+            <h3>
+                Simple Class and Object
+            </h3>
+
+            <div class="code-box">
+
+class Student {
+
+    String name;
+
+    void display() {
+
+        System.out.println(name);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        s.name = "Ajay";
+
+        s.display();
+
+    }
+
+}
+
+            </div>
+
+            <p>
+                Objects are created from classes
+                and can contain data and methods.
+            </p>
+
+        `
+
+    },
+
+
+    {
+
+        title:
+        "Java Quiz",
+
+        content: `
+
+            <div class="quiz">
+
+                <h2>
+                    📝 Java Programming Quiz
+                </h2>
+
+                <p>
+                    Test your Java knowledge!
+                </p>
+
+                <div
+                    class="quiz-question"
+                    id="quizQuestion">
+                </div>
+
+                <div
+                    id="quizOptions">
+                </div>
+
+                <button
+                    class="complete-btn"
+                    id="nextQuizBtn"
+                    onclick="nextQuizQuestion()"
+                    style="display:none;">
+
+                    Next Question
+
+                </button>
+
+                <div
+                    class="quiz-result"
+                    id="quizResult">
+                </div>
+
+            </div>
+
+        `
+
+    }
+
+];
+
+
+// ===============================
+// QUIZ QUESTIONS
+// ===============================
+
+const quizQuestions = [
+
+    {
+
+        question:
+        "Which keyword is used to create a class in Java?",
+
+        options: [
+
+            "class",
+
+            "object",
+
+            "new",
+
+            "create"
+
+        ],
+
+        answer: 0
+
+    },
+
+
+    {
+
+        question:
+        "Which method is the starting point of a Java program?",
+
+        options: [
+
+            "start()",
+
+            "main()",
+
+            "run()",
+
+            "begin()"
+
+        ],
+
+        answer: 1
+
+    },
+
+
+    {
+
+        question:
+        "Which data type is used to store whole numbers?",
+
+        options: [
+
+            "String",
+
+            "double",
+
+            "int",
+
+            "boolean"
+
+        ],
+
+        answer: 2
+
+    },
+
+
+    {
+
+        question:
+        "Which keyword is used to create an object?",
+
+        options: [
+
+            "new",
+
+            "class",
+
+            "object",
+
+            "create"
+
+        ],
+
+        answer: 0
+
+    },
+
+
+    {
+
+        question:
+        "Which concept allows one class to inherit another class?",
+
+        options: [
+
+            "Encapsulation",
+
+            "Inheritance",
+
+            "Abstraction",
+
+            "Polymorphism"
+
+        ],
+
+        answer: 1
+
+    }
+
+];
+
+
+// ===============================
+// VARIABLES
+// ===============================
+
+let currentLesson = 0;
+
+let completedLessons =
+    JSON.parse(
+        localStorage.getItem(
+            "javaCompletedLessons"
+        )
+    ) || [];
+
+let currentQuizQuestion = 0;
+
+let quizScore = 0;
+
+let quizAnswered = false;
+
+
+// ===============================
+// SHOW LESSON
+// ===============================
+
+function showLesson(index) {
+
+    currentLesson = index;
+
+    const lessonContent =
+        document.getElementById(
+            "lessonContent"
+        );
+
+    lessonContent.innerHTML =
+        lessons[index].content;
+
+
+    if (index < 7) {
+
+        const completeButton =
+            document.createElement("button");
+
+        completeButton.className =
+            "complete-btn";
+
+        completeButton.innerText =
+            "✅ Mark as Completed";
+
+        completeButton.onclick =
+            markCompleted;
+
+        lessonContent.appendChild(
+            completeButton
+        );
+
+    }
+
+
+    if (index === lessons.length - 1) {
+
+        loadQuizQuestion();
+
+    }
+
+
+    updateNavigation();
+
+}
+
+
+// ===============================
+// NAVIGATION
+// ===============================
+
+function updateNavigation() {
+
+    const oldNavigation =
+        document.querySelector(
+            ".navigation"
+        );
+
+    if (oldNavigation) {
+
+        oldNavigation.remove();
+
+    }
+
+
+    const navigation =
+        document.createElement(
+            "div"
+        );
+
+    navigation.className =
+        "navigation";
+
+
+    const previousButton =
+        document.createElement(
+            "button"
+        );
+
+    previousButton.innerText =
+        "⬅ Previous";
+
+    previousButton.onclick =
+        previousLesson;
+
+
+    const nextButton =document.createElement(
+            "button"
+        );
+
+    nextButton.innerText =
+        "Next ➡";
+
+    nextButton.onclick =
+        nextLesson;
+
+
+    if (currentLesson === 0) {
+
+        previousButton.style.visibility =
+            "hidden";
+
+    }
+
+
+    if (currentLesson === lessons.length - 1) {
+
+        nextButton.style.display =
+            "none";
+
+    }
+
+
+    navigation.appendChild(
+        previousButton
+    );
+
+    navigation.appendChild(
+        nextButton
+    );
+
+
+    document
+        .getElementById("lessonContent")
+        .appendChild(navigation);
+
+}
+
+
+// ===============================
+// MARK LESSON COMPLETED
+// ===============================
+
+function markCompleted() {
+
+    if (
+        !completedLessons.includes(
+            currentLesson
+        )
+    ) {
+
+        completedLessons.push(
+            currentLesson
+        );
+
+        localStorage.setItem(
+
+            "javaCompletedLessons",
+
+            JSON.stringify(
+                completedLessons
+            )
+
+        );
+
+    }
+
+
+    updateProgress();
+
+}
+
+
+// ===============================
+// UPDATE PROGRESS
+// ===============================
+
+function updateProgress() {
+
+    const totalLessons = 7;
+
+    const completedCount =
+        completedLessons.filter(
+            index => index < 7
+        ).length;
+
+
+    const progress =
+        Math.round(
+            (
+                completedCount /
+                totalLessons
+            ) * 100
+        );
+
+
+    document.getElementById(
+        "progressText"
+    ).innerText =
+        progress + "%";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        progress + "%";
+
+}
+
+
+// ===============================
+// NEXT LESSON
+// ===============================
+
+function nextLesson() {
+
+    if (
+        currentLesson <
+        lessons.length - 1
+    ) {
+
+        markCompleted();
+
+        currentLesson++;
+
+        showLesson(
+            currentLesson
+        );
+
+    }
+
+}
+
+
+// ===============================
+// PREVIOUS LESSON
+// ===============================
+
+function previousLesson() {
+
+    if (
+        currentLesson > 0
+    ) {
+
+        currentLesson--;
+
+        showLesson(
+            currentLesson
+        );
+
+    }
+
+}
+
+
+// ===============================
+// LOAD QUIZ QUESTION
+// ===============================
+
+function loadQuizQuestion() {
+
+    const question =
+        quizQuestions[
+            currentQuizQuestion
+        ];
+
+
+    document.getElementById(
+        "quizQuestion"
+    ).innerText =
+        question.question;
+
+
+    const options =
+        document.getElementById(
+            "quizOptions"
+        );
+
+
+    options.innerHTML = "";
+
+
+    question.options.forEach(
+        (option, index) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.className =
+                "quiz-option";
+
+            button.innerText =
+                option;
+
+            button.onclick =
+                function() {
+
+                    checkQuizAnswer(
+                        index
+                    );
+
+                };
+
+
+            options.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "nextQuizBtn"
+    ).style.display =
+        "none";
+
+
+    quizAnswered = false;
+
+}
+
+
+// ===============================
+// CHECK QUIZ ANSWER
+// ===============================
+
+function checkQuizAnswer(
+    selectedAnswer
+) {
+
+    if (quizAnswered) {
+
+        return;
+
+    }
+
+
+    quizAnswered = true;
+
+
+    const correctAnswer =
+        quizQuestions[
+            currentQuizQuestion
+        ].answer;
+
+
+    const options =
+        document.querySelectorAll(
+            ".quiz-option"
+        );
+
+
+    if (
+        selectedAnswer ===
+        correctAnswer
+    ) {
+
+        quizScore++;
+
+        options[
+            selectedAnswer
+        ].style.background =
+            "#bbf7d0";
+
+    } else {
+
+        options[
+            selectedAnswer
+        ].style.background =
+            "#fecaca";
+
+        options[
+            correctAnswer
+        ].style.background =
+            "#bbf7d0";
+
+    }
+
+
+    if (
+        currentQuizQuestion <
+        quizQuestions.length - 1
+    ) {
+
+        document.getElementById(
+            "nextQuizBtn"
+        ).style.display =
+            "block";
+
+    } else {
+
+        setTimeout(
+            showQuizResult,
+            500
+        );
+
+    }
+
+}
+
+
+// ===============================
+// NEXT QUIZ QUESTION
+// ===============================
+
+function nextQuizQuestion() {
+
+    currentQuizQuestion++;
+
+    loadQuizQuestion();
+
+}
+
+
+// ===============================
+// SHOW QUIZ RESULT
+// ===============================
+
+function showQuizResult() {
+
+    document.getElementById(
+        "quizQuestion"
+    ).innerText =
+        "🎉 Quiz Completed!";
+
+
+    document.getElementById(
+        "quizOptions"
+    ).innerHTML =
+        "";
+
+
+    document.getElementById(
+        "nextQuizBtn"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "quizResult"
+    ).innerHTML = `
+
+        <h2>
+            Your Score:
+            ${quizScore} /
+            ${quizQuestions.length}
+        </h2>
+
+        <p>
+
+            ${
+                quizScore ===
+                quizQuestions.length
+
+                ? "🏆 Excellent! You got all answers correct!"
+
+                : "👍 Good job! Keep practicing."
+
+            }
+
+        </p>
+
+
+        ${
+            quizScore ===
+            quizQuestions.length
+
+            ? `
+
+                <div class="completion">
+
+                    <h2>
+                        🎉 Congratulations!
+                    </h2>
+
+                    <h3>
+                        Java Programming Course Completed!
+                    </h3>
+
+                    <p>
+                        You have successfully completed
+                        all lessons and the quiz. 🏆
+                    </p>
+
+                </div>
+
+              `
+
+            : ""
+
+        }
+
+
+        <button
+            class="complete-btn"
+            onclick="restartQuiz()">
+
+            🔄 Try Again
+
+        </button>
+
+    `;
+
+
+    localStorage.setItem(
+
+        "javaCourseCompleted",
+
+        "true"
+
+    );
+
+}
+
+
+// ===============================
+// RESTART QUIZ
+// ===============================
+
+function restartQuiz() {
+
+    currentQuizQuestion = 0;
+
+    quizScore = 0;
+
+    quizAnswered = false;
+
+
+    document.getElementById(
+        "quizResult"
+    ).innerHTML =
+        "";
+
+
+    loadQuizQuestion();
+
+}
+
+
+// ===============================
+// START COURSE
+// ===============================
+
+showLesson(0);
+
+updateProgress();
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Tutor - AI Learn</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        nav {
+            background: #1e3a8a;
+            color: white;
+            padding: 16px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            background: #2563eb;
+            padding: 9px 15px;
+            border-radius: 7px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .title h1 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .title p {
+            color: #64748b;
+        }
+
+        .quick-questions {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .quick-questions h2 {
+            color: #1e3a8a;
+            margin-bottom: 18px;
+        }
+
+        .category {
+            margin-bottom: 22px;
+        }
+
+        .category h3 {
+            margin-bottom: 10px;
+            color: #334155;
+        }
+
+        .quick-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quick-buttons button {
+            border: 1px solid #c7d2fe;
+            background: #eef2ff;
+            color: #1e3a8a;
+            padding: 10px 14px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .quick-buttons button:hover {
+            background: #dbeafe;
+            transform: translateY(-2px);
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        #chatBox {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            background: #f8fafc;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            max-width: 85%;
+            white-space: pre-line;
+        }
+
+        .bot {
+            background: #e0e7ff;
+            color: #1e293b;
+        }
+
+        .user {
+            background: #2563eb;
+            color: white;
+            margin-left: auto;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        #question {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .ask-btn {
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .ask-btn:hover {
+            background: #2563eb;
+        }
+
+        .tools {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tools button,
+        .tools label {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .tools button:hover,
+        .tools label:hover {
+            background: #e2e8f0;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        #cameraArea {
+            display: none;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        #video {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        #canvas {
+            display: none;
+        }
+
+        .preview-image {
+            max-width: 300px;
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .status-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+            white-space: pre-line;
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 14px;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            .input-area {
+                flex-direction: column;
+            }
+
+            .ask-btn {
+                width: 100%;
+            }
+
+            #chatBox {
+                height: 350px;
+            }
+        }
+
+    </style>
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- Mammoth DOCX reader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+
+    <!-- Tesseract OCR -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>🤖 AI Learn</h2>
+
+    <a href="dashboard.html">
+        Dashboard
+    </a>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="title">
+
+        <h1>🤖 AI Tutor</h1>
+
+        <p>
+            Learn, ask questions and explore different subjects.
+        </p>
+
+    </div>
+
+
+    <!-- QUICK QUESTIONS -->
+
+    <div class="quick-questions">
+
+        <h2>⚡ Quick Questions</h2>
+
+
+        <!-- PROGRAMMING -->
+
+        <div class="category">
+
+            <h3>🐍 Programming</h3>
+
+            <div class="quick-buttons">
+
+                <button onclick="quickQuestion('What is Python?')">
+                    🐍 Python
+                </button>
+
+                <button onclick="quickQuestion('What is C?')">
+                    💻 C
+                </button>
+
+                <button onclick="quickQuestion('What is Java?')">
+                    ☕ Java
+                </button>
+
+                <button onclick="quickQuestion('What is JavaScript?')">
+                    ⚡ JavaScript
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI ML -->
+
+        <div class="category">
+
+            <h3>🤖 AI & Machine Learning</h3>
+
+            <div class="quick-buttons">
+
+                <button onclick="quickQuestion('What is Artificial Intelligence?')">
+                    🤖 Artificial Intelligence
+                </button>
+
+                <button onclick="quickQuestion('What is Machine Learning?')">
+                    🧠 Machine Learning
+                </button>
+
+                <button onclick="quickQuestion('What is Deep Learning?')">
+                    🔮 Deep Learning
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- WEB -->
+
+        <div class="category">
+
+            <h3>🌐 Web Development</h3>
+
+            <div class="quick-buttons">
+
+                <button onclick="quickQuestion('What is HTML?')">
+                    🌐 HTML
+                </button>
+
+                <button onclick="quickQuestion('What is CSS?')">
+                    🎨 CSS
+                </button>
+
+                <button onclick="quickQuestion('What is JavaScript?')">
+                    ⚡ JavaScript
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- MATHS -->
+
+        <div class="category">
+
+            <h3>➗ Mathematics</h3>
+
+            <div class="quick-buttons">
+
+                <button onclick="quickQuestion('What is Addition?')">
+                    ➕ Addition
+                </button>
+
+                <button onclick="quickQuestion('What is Subtraction?')">
+                    ➖ Subtraction
+                </button>
+
+                <button onclick="quickQuestion('What is Multiplication?')">
+                    ✖️ Multiplication
+                </button>
+
+                <button onclick="quickQuestion('What is Division?')">
+                    ➗ Division
+                </button>
+
+                <button onclick="quickQuestion('What is Percentage?')">
+                    💯 Percentage
+                </button>
+
+                <button onclick="quickQuestion('What is Algebra?')">
+                    📐 Algebra
+                </button>
+
+                <button onclick="quickQuestion('Solve 10 + 5')">
+                    🧮 10 + 5
+                </button>
+
+                <button onclick="quickQuestion('Solve 20 - 7')">
+                    🧮 20 - 7
+                </button>
+
+                <button onclick="quickQuestion('Solve 6 x 4')">
+                    🧮 6 × 4
+                </button>
+
+                <button onclick="quickQuestion('Solve 20 / 5')">
+                    🧮 20 ÷ 5
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SCIENCE -->
+
+        <div class="category">
+
+            <h3>🔬 Science</h3>
+
+            <div class="quick-buttons">
+
+                <button onclick="quickQuestion('What is Physics?')">
+                    ⚛️ Physics
+                </button>
+
+                <button onclick="quickQuestion('What is Chemistry?')">
+                    🧪 Chemistry
+                </button>
+
+                <button onclick="quickQuestion('What is Biology?')">
+                    🧬 Biology
+                </button>
+
+                <button onclick="quickQuestion('What is Gravity?')">
+                    🌍 Gravity
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- GENERAL -->
+
+        <div class="category">
+
+            <h3>📚 General Study</h3>
+
+            <div class="quick-buttons">
+
+                <button onclick="quickQuestion('What is an Algorithm?')">
+                    🧩 Algorithm
+                </button>
+
+                <button onclick="quickQuestion('What is a Database?')">
+                    🗄️ Database
+                </button>
+
+                <button onclick="quickQuestion('What is an Operating System?')">
+                    💻 Operating System
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHAT -->
+
+    <div class="chat-container">
+
+        <div id="chatBox">
+
+            <div class="message bot">
+                👋 Hello! I am your AI Learn Tutor.
+
+                Choose a Quick Question above or type your own question below.
+            </div>
+
+        </div>
+
+
+        <div class="input-area">
+
+            <input
+                type="text"
+                id="question"
+                placeholder="Ask your question..."
+                onkeydown="handleEnter(event)"
+            >
+
+            <button
+                class="ask-btn"
+                onclick="askAI()"
+            >
+                Ask AI 🤖
+            </button>
+
+        </div>
+
+
+        <!-- TOOLS -->
+
+        <div class="tools">
+
+            <button onclick="openCamera()">
+                📷 Camera
+            </button>
+
+            <label for="fileInput">
+                📄 Upload File
+            </label>
+
+            <input
+                type="file"
+                id="fileInput"
+                accept=".pdf,.txt,.docx,image/*"
+                onchange="handleFile(event)"
+            >
+
+        </div>
+
+
+        <!-- CAMERA -->
+
+        <div id="cameraArea">
+
+            <video
+                id="video"
+                autoplay
+                playsinline
+            ></video>
+
+            <br><br>
+
+            <button onclick="capturePhoto()">
+                📸 Capture Photo
+            </button>
+
+            <button onclick="closeCamera()">
+                ❌ Close Camera
+            </button>
+
+            <canvas id="canvas"></canvas>
+
+        </div>
+
+
+        <div id="statusBox"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* QUICK QUESTION */
+
+    function quickQuestion(question) {
+
+        document.getElementById("question").value = question;
+
+        askAI();
+
+    }
+
+
+    /* ENTER KEY */
+
+    function handleEnter(event) {
+
+        if (event.key === "Enter") {
+
+            askAI();
+
+        }
+
+    }
+
+
+    /* ADD MESSAGE */
+
+    function addMessage(text, type) {
+
+        const chatBox =
+            document.getElementById("chatBox");
+
+        const message =
+            document.createElement("div");
+
+        message.className =
+            "message " + type;
+
+        message.innerText = text;
+
+        chatBox.appendChild(message);
+
+        chatBox.scrollTop =
+            chatBox.scrollHeight;
+
+    }
+
+
+    /* ASK AI */
+
+    async function askAI() {
+
+        const input =
+            document.getElementById("question");
+
+        const question =
+            input.value.trim();
+
+        if (!question) {
+
+            return;
+
+        }
+
+
+        addMessage(
+            question,
+            "user"
+        );
+
+        input.value = "";
+
+
+        addMessage(
+            "🤔 Thinking...",
+            "bot"
+        );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://127.0.0.1:8001/ask",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            question: question
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            const messages =
+                document.querySelectorAll(
+                    "#chatBox .bot"
+                );
+
+            const lastMessage =
+                messages[messages.length - 1];
+
+
+            lastMessage.innerText =
+                data.answer;
+
+        }
+
+        catch (error) {
+
+            const messages =
+                document.querySelectorAll(
+                    "#chatBox .bot"
+                );
+
+            const lastMessage =
+                messages[messages.length - 1];
+
+
+            lastMessage.innerText =
+                "❌ Server connection problem. Please make sure server.py is running.";
+
+        }
+
+    }
+
+
+    /* CAMERA */
+
+    let stream = null;
+
+
+    async function openCamera() {
+
+        try {
+
+            stream =
+                await navigator.mediaDevices
+                    .getUserMedia({
+                        video: true
+                    });
+
+
+            const video =
+                document.getElementById("video");
+
+            video.srcObject =
+                stream;
+
+
+            document.getElementById(
+                "cameraArea"
+            ).style.display = "block";
+
+        }
+
+        catch (error) {
+
+            alert(
+                "Camera permission denied or camera not available."
+            );
+
+        }
+
+    }
+
+
+    /* CAPTURE PHOTO */
+
+    async function capturePhoto() {
+
+        const video =
+            document.getElementById("video");
+
+        const canvas =
+            document.getElementById("canvas");
+
+        canvas.width =
+            video.videoWidth;
+
+        canvas.height =
+            video.videoHeight;
+
+        const context =
+            canvas.getContext("2d");
+
+        context.drawImage(
+            video,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        const image =
+            canvas.toDataURL("image/png");
+
+
+        addMessage(
+            "📸 Photo captured successfully!",
+            "user"
+        );
+
+
+        const img =
+            document.createElement("img");
+
+        img.src = image;
+
+        img.className = "preview-image";
+
+
+        document.getElementById(
+            "chatBox"
+        ).appendChild(img);
+
+
+        document.getElementById(
+            "chatBox"
+        ).scrollTop =
+            document.getElementById(
+                "chatBox"
+            ).scrollHeight;
+
+
+        await analyzeImage(image);
+
+    }
+
+
+    /* CLOSE CAMERA */
+
+    function closeCamera() {
+
+        if (stream) {
+
+            stream
+                .getTracks()
+                .forEach(
+                    track => track.stop()
+                );
+
+            stream = null;
+
+        }
+
+
+        document.getElementById(
+            "cameraArea"
+        ).style.display = "none";
+
+    }
+
+
+    /* IMAGE FILE */
+
+    async function analyzeImage(imageSource) {
+
+        setStatus(
+            "🔍 Reading text from image... Please wait."
+        );
+
+
+        try {
+
+            const result =
+                await Tesseract.recognize(
+                    imageSource,
+                    "eng",
+                    {
+                        logger: function(info) {
+
+                            if (
+                                info.status ===
+                                "recognizing text"
+                            ) {
+
+                                const percent =
+                                    Math.round(
+                                        info.progress * 100
+                                    );
+
+                                setStatus(
+                                    "🔍 Reading image... " +
+                                    percent +
+                                    "%"
+                                );
+
+                            }
+
+                        }
+                    }
+                );
+
+
+            const text =
+                result.data.text.trim();
+
+
+            if (!text) {
+
+                addMessage(
+                    "⚠️ No readable text found in the image.",
+                    "bot"
+                );
+
+                setStatus("");
+
+                return;
+
+            }
+
+
+            addMessage(
+                "📝 Text found in photo:\n\n" + text,
+                "bot"
+            );
+
+
+            document.getElementById("question").value = text;
+
+            askAI();
+
+
+            addMessage(
+                "💡 You can copy this text and ask the AI Tutor your question.",
+                "bot"
+            );
+
+
+            setStatus(
+                "✅ Image text extraction completed."
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            addMessage(
+                "❌ Could not read the text from the image.",
+                "bot"
+            );
+
+            setStatus("");
+
+        }
+
+    }
+
+
+    /* FILE UPLOAD */
+
+    async function handleFile(event) {
+
+        const file =
+            event.target.files[0];
+
+        if (!file) {
+
+            return;
+
+        }
+
+
+        addMessage(
+            "📄 File selected: " +
+            file.name,
+            "user"
+        );
+
+
+        const fileName =
+            file.name.toLowerCase();
+
+
+        try {
+
+            if (
+                fileName.endsWith(".txt")
+            ) {
+
+                await readTextFile(file);
+
+            }
+
+            else if (
+                fileName.endsWith(".pdf")
+            ) {
+
+                await readPDF(file);
+
+            }
+
+            else if (
+                fileName.endsWith(".docx")
+            ) {
+
+                await readDOCX(file);
+
+            }
+
+            else if (
+                file.type.startsWith("image/")
+            ) {
+
+                await readImageFile(file);
+
+            }
+
+            else {
+
+                addMessage(
+                    "⚠️ This file type is not supported yet. Please upload TXT, PDF, DOCX or image.",
+                    "bot"
+                );
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            addMessage(
+                "❌ Could not read this file.",
+                "bot"
+            );
+
+            setStatus("");
+
+        }
+
+
+        event.target.value = "";
+
+    }
+
+
+    /* TXT FILE */
+
+    async function readTextFile(file) {
+
+        setStatus(
+            "📖 Reading TXT file..."
+        );
+
+
+        const text =
+            await file.text();
+
+
+        if (!text.trim()) {
+
+            addMessage(
+                "⚠️ The TXT file is empty.",
+                "bot"
+            );
+
+            setStatus("");
+
+            return;
+
+        }
+
+
+        addMessage(
+            "📚 File content:\n\n" + text,
+            "bot"
+        );
+
+
+        addMessage(
+            "💡 You can ask questions about this text using the question box.",
+            "bot"
+        );
+
+
+        setStatus(
+            "✅ TXT file read successfully."
+        );
+
+    }
+
+
+    /* PDF FILE */
+
+    async function readPDF(file) {
+
+        setStatus(
+            "📖 Reading PDF file..."
+        );
+
+
+        const arrayBuffer =
+            await file.arrayBuffer();
+
+
+        const pdf =
+            await pdfjsLib.getDocument({
+                data: arrayBuffer
+            }).promise;
+
+
+        let fullText = "";
+
+
+        for (
+            let pageNumber = 1;
+            pageNumber <= pdf.numPages;
+            pageNumber++
+        ) {
+
+            setStatus(
+                "📖 Reading PDF page " +
+                pageNumber +
+                " of " +
+                pdf.numPages +
+                "..."
+            );
+
+
+            const page =
+                await pdf.getPage(
+                    pageNumber
+                );
+
+
+            const content =
+                await page.getTextContent();
+
+
+            const pageText =
+                content.items
+                    .map(
+                        item => item.str
+                    )
+                    .join(" ");
+
+
+            fullText +=
+                "\n\nPage " +
+                pageNumber +
+                ":\n" +
+                pageText;
+
+        }
+
+
+        if (!fullText.trim()) {
+
+            addMessage(
+                "⚠️ No selectable text found in this PDF. If it is a scanned PDF, use the Camera/photo OCR option.",
+                "bot"
+            );
+
+            setStatus("");
+
+            return;
+
+        }
+
+
+        addMessage(
+            "📚 PDF content extracted:\n\n" +
+            fullText,
+            "bot"
+        );
+
+
+        addMessage(
+            "💡 You can now use the extracted text to ask questions.",
+            "bot"
+        );
+
+
+        setStatus(
+            "✅ PDF text extraction completed."
+        );
+
+    }
+
+
+    /* DOCX FILE */
+
+    async function readDOCX(file) {
+
+        setStatus(
+            "📖 Reading DOCX file..."
+        );
+
+
+        const arrayBuffer =
+            await file.arrayBuffer();
+
+
+        const result =
+            await mammoth.extractRawText({
+                arrayBuffer:
+                    arrayBuffer
+            });
+
+
+        const text =
+            result.value.trim();
+
+
+        if (!text) {
+
+            addMessage(
+                "⚠️ No readable text found in this DOCX file.",
+                "bot"
+            );
+
+            setStatus("");
+
+            return;
+
+        }
+
+
+        addMessage(
+            "📚 DOCX content:\n\n" +
+            text,
+            "bot"
+        );
+
+
+        addMessage(
+            "💡 You can now ask questions about this document.",
+            "bot"
+        );
+
+
+        setStatus(
+            "✅ DOCX file read successfully."
+        );
+
+    }
+
+
+    /* IMAGE FILE */
+
+    async function readImageFile(file) {
+
+        setStatus(
+            "🔍 Preparing image for OCR..."
+        );
+
+
+        const imageURL =
+            URL.createObjectURL(file);
+
+
+        const img =
+            document.createElement("img");
+
+        img.src =
+            imageURL;
+
+        img.className =
+            "preview-image";
+
+
+        document.getElementById(
+            "chatBox"
+        ).appendChild(img);
+
+
+        await analyzeImage(
+            imageURL
+        );
+
+
+        URL.revokeObjectURL(
+            imageURL
+        );
+
+    }
+
+
+    /* STATUS */
+
+    function setStatus(text) {
+
+        const statusBox =
+            document.getElementById(
+                "statusBox"
+            );
+
+
+        if (!text) {
+
+            statusBox.innerText = "";
+
+            statusBox.className = "";
+
+            return;
+
+        }
+
+
+        statusBox.className =
+            "status-box";
+
+        statusBox.innerText =
+            text;
+
+    }
+
+</script>
+
+</body>
+</html>

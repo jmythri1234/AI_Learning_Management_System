@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Register - AI Learn</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-box {
+            background: white;
+            width: 350px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+        }
+
+        p {
+            text-align: center;
+            color: #666;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+
+            background: #7c3aed;
+            color: white;
+
+            border: none;
+            border-radius: 6px;
+
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #6d28d9;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="register-box">
+
+        <h1>Create Account</h1>
+
+        <p>Join AI Learn</p>
+
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter your name">
+
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email">
+
+        <label>Password</label>
+        <input type="password" placeholder="Create password">
+
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Confirm password">
+
+        <button onclick="register()">
+            Create Account
+        </button>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function register() {
+
+            alert("Account created successfully!");
+
+            window.location.href = "login.html";
+
+        }
+
+    </script>
+
+</body>
+</html>

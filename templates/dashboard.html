@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - AI Learn</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            height: 70px;
+            background: linear-gradient(
+                135deg,
+                #111827,
+                #1e3a8a
+            );
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            color: white;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .logout {
+            background: #ef4444;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        .logout:hover {
+            background: #dc2626;
+            opacity: 1 !important;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            width: 90%;
+            max-width: 1250px;
+
+            margin: 35px auto 25px;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+
+            color: white;
+
+            box-shadow:
+                0 15px 35px rgba(37,99,235,0.25);
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "🎓";
+
+            position: absolute;
+
+            right: 50px;
+            top: 20px;
+
+            font-size: 100px;
+
+            opacity: 0.15;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+
+        /* ================= STATS ================= */
+
+        .stats {
+            width: 90%;
+            max-width: 1250px;
+
+            margin: 0 auto 30px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+
+            padding: 24px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 8px 25px rgba(15,23,42,0.08);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 15px 30px rgba(15,23,42,0.13);
+        }
+
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+
+            background: #eff6ff;
+        }
+
+        .stat-card h2 {
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+
+/* ================= SECTION ================= */
+
+        .section {
+            width: 90%;
+            max-width: 1250px;
+
+            margin: 0 auto 35px;
+        }
+
+        .section-title {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-size: 24px;
+        }
+
+        .section-title span {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+
+        /* ================= COURSES ================= */
+
+        .course-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+        .course-card {
+            background: white;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 25px rgba(15,23,42,0.08);
+
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 18px 35px rgba(15,23,42,0.15);
+        }
+
+        .course-top {
+            padding: 25px;
+
+            background: linear-gradient(
+                135deg,
+                #eff6ff,
+                #eef2ff
+            );
+        }
+
+        .course-icon {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 15px;
+
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 30px;
+
+            margin-bottom: 15px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .course-top h3 {
+            font-size: 20px;
+
+            margin-bottom: 7px;
+        }
+
+        .course-top p {
+            font-size: 13px;
+
+            color: #64748b;
+        }
+
+        .course-body {
+            padding: 20px 25px 25px;
+        }
+
+        .progress-text {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 9px;
+
+            font-size: 13px;
+
+            color: #64748b;
+        }
+
+        .progress-text span:last-child {
+            font-weight: bold;
+
+            color: #2563eb;
+        }
+
+        .progress-bar {
+            width: 100%;
+
+            height: 9px;
+
+            background: #e2e8f0;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+
+            width: 0%;
+
+            background: linear-gradient(
+                90deg,
+                #2563eb,
+                #7c3aed
+            );
+
+            border-radius: 20px;
+
+            transition: width 0.7s ease;
+        }
+
+        .start-btn {
+            display: block;
+
+            width: 100%;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            background: #2563eb;
+
+            color: white;
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #1d4ed8;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* ================= AI TUTOR ================= */
+
+        .ai-tutor {
+            margin-top: 10px;
+
+            background: linear-gradient(
+                135deg,
+                #111827,
+                #312e81
+            );
+
+            color: white;
+
+            border-radius: 20px;
+
+            padding: 32px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 15px 35px rgba(30,27,75,0.2);
+        }
+
+        .ai-content h2 {
+            font-size: 25px;
+
+            margin-bottom: 10px;
+        }
+
+        .ai-content p {
+            color: #cbd5e1;
+
+            font-size: 14px;
+        }
+
+        .ai-btn {
+            background: white;
+
+            color: #312e81;
+
+            text-decoration: none;
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+
+            transition: 0.3s;
+        }
+
+        .ai-btn:hover {
+            transform: scale(1.05);
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            color: #64748b;
+
+            font-size: 13px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+
+            .course-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero {
+                width: 92%;
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 25px;
+            }
+
+            .stats {
+                width: 92%;
+
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                width: 92%;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-tutor {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+ <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <div class="logo">
+            🤖 AI Learn
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="ai-tutor.html">
+                AI Tutor
+            </a>
+
+            <a href="login.html"
+               class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <h1>
+            Welcome Back, Learner! 👋
+        </h1>
+
+        <p>
+            Continue your learning journey and
+            improve your skills every day.
+        </p>
+
+    </section>
+
+
+
+    <!-- ================= STATS ================= -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <div>
+
+                <h2>
+                    6
+                </h2>
+
+                <p>
+                    Available Courses
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🚀
+            </div>
+
+            <div>
+
+                <h2>
+                    0
+                </h2>
+
+                <p>
+                    Courses Started
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📈
+            </div>
+
+            <div>
+
+                <h2>
+                    0%
+                </h2>
+
+                <p>
+                    Overall Progress
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <div>
+
+                <h2>
+                    0
+                </h2>
+
+                <p>
+                    Completed Courses
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= COURSES ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                📚 My Courses
+            </h2>
+
+            <span>
+                Continue learning
+            </span>
+
+        </div>
+
+
+        <div class="course-grid">
+
+
+            <!-- PYTHON -->
+
+            <div class="course-card">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🐍
+                    </div>
+
+                    <h3>
+                        Python Programming
+                    </h3>
+
+                    <p>
+                        Learn Python from basics
+                        to programming concepts.
+                    </p>
+
+                </div>
+
+                <div class="course-body">
+
+                    <div class="progress-text">
+
+                        <span>
+                            Progress
+                        </span>
+
+                        <span>
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill"></div>
+
+                    </div>
+
+                    <a href="course.html"
+                       class="start-btn">
+                        Continue Course →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AI -->
+
+            <div class="course-card">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        Artificial Intelligence
+                    </h3>
+
+                    <p>
+                        Understand AI concepts and
+                        intelligent systems.
+                    </p>
+
+                </div>
+
+                <div class="course-body">
+
+                    <div class="progress-text">
+
+                        <span>
+                            Progress
+                        </span>
+
+                        <span>
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill"></div>
+
+                    </div>
+
+                    <a href="ai-course.html"
+                       class="start-btn">
+                        Continue Course →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ML -->
+
+            <div class="course-card">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🧠
+                    </div>
+
+                    <h3>
+                        Machine Learning
+                    </h3>
+
+                    <p>
+                        Learn algorithms and
+                        machine learning concepts.
+                    </p>
+
+                </div>
+
+                <div class="course-body">
+
+                    <div class="progress-text">
+
+                        <span>
+                            Progress
+                        </span>
+
+                        <span>
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill"></div>
+
+                    </div>
+
+                    <a href="ml-course.html"
+                       class="start-btn">
+                        Continue Course →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WEB -->
+
+            <div class="course-card">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🌐
+                    </div>
+
+                    <h3>
+                        Web Development
+                    </h3>
+
+                    <p>
+                        Build websites using modern
+                        web technologies.
+                    </p>
+
+                </div>
+
+                <div class="course-body">
+
+                    <div class="progress-text">
+
+                        <span>
+                            Progress
+                        </span>
+
+                        <span>
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill"></div>
+
+                    </div>
+
+                    <a href="web-course.html"
+                       class="start-btn">
+                        Continue Course →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- JAVA -->
+
+            <div class="course-card">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        ☕
+                    </div>
+
+                    <h3>
+                        Java Programming
+                    </h3>
+
+                    <p>
+                        Learn object-oriented
+                        Java programming.
+                    </p>
+
+                </div>
+
+                <div class="course-body">
+
+                    <div class="progress-text">
+
+                        <span>
+                            Progress
+                        </span>
+
+                        <span>
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill"></div>
+
+                    </div>
+
+                    <a href="java-course.html"
+                       class="start-btn">
+                        Continue Course →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DATABASE -->
+
+            <div class="course-card">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        🗄️
+                    </div>
+
+                    <h3>
+                        Database Management
+                    </h3>
+
+                    <p>
+                        Learn databases, SQL and
+                        data management.
+                    </p>
+
+                </div>
+
+                <div class="course-body">
+
+                    <div class="progress-text">
+
+                        <span>
+                            Progress
+                        </span>
+
+                        <span>
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill"></div>
+
+                    </div>
+
+                    <a href="database-course.html"
+                       class="start-btn">
+                        Continue Course →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= AI TUTOR ================= -->
+
+    <section class="section">
+
+        <div class="ai-tutor">
+
+            <div class="ai-content">
+
+                <h2>
+                    🤖 Meet Your AI Tutor
+                </h2>
+
+                <p>
+                    Ask questions, get explanations
+                    and learn smarter with your
+                    AI-powered learning assistant.
+                </p>
+
+            </div>
+
+            <a href="ai-tutor.html"
+               class="ai-btn">
+
+                Ask AI Tutor →
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        © 2026 AI Learn |
+        AI-Powered Learning Management System
+
+    </footer>
+
+
+
+    <!-- ================= PROGRESS TRACKING ================= -->
+
+    <script>
+
+        const courseProgressData = [
+
+            {
+                key: "pythonCompletedLessons",
+                progress: 0
+            },
+
+            {
+                key: "aiCompletedLessons",
+                progress: 0
+            },
+
+            {
+                key: "mlCompletedLessons",
+                progress: 0
+            },
+
+            {
+                key: "webCompletedLessons",
+                progress: 0
+            },
+
+            {
+                key: "javaCompletedLessons",
+                progress: 0
+            },
+
+            {
+                key: "databaseCompletedLessons",
+                progress: 0
+            }
+
+        ];
+
+
+        function getCourseProgress(key) {
+
+            const completedLessons =
+                JSON.parse(
+                    localStorage.getItem(key)
+                ) || [];
+
+
+            const uniqueLessons =
+                [...new Set(completedLessons)];
+
+
+            const totalLessons = 7;
+
+
+            return Math.min(
+
+                100,
+
+                Math.round(
+
+                    (
+                        uniqueLessons.length /
+                        totalLessons
+                    ) * 100
+
+                )
+
+            );
+
+        }
+
+
+
+        /* GET PROGRESS */
+
+        courseProgressData.forEach(
+
+            course => {
+
+                course.progress =
+                    getCourseProgress(
+                        course.key
+                    );
+
+            }
+
+        );
+
+
+
+        /* UPDATE COURSE CARDS */
+
+        const progressTexts =
+            document.querySelectorAll(
+                ".progress-text span:last-child"
+            );
+
+
+        const progressBars =
+            document.querySelectorAll(
+                ".progress-fill"
+            );
+
+
+        courseProgressData.forEach(
+
+            (course, index) => {
+
+                if (
+                    progressTexts[index] &&
+                    progressBars[index]
+                ) {
+
+                    progressTexts[index]
+                        .innerText =
+                        course.progress + "%";
+
+
+                    progressBars[index]
+                        .style.width =
+                        course.progress + "%";
+
+                }
+
+            }
+
+        );
+
+
+
+        /* COURSES STARTED */
+
+        const startedCourses =
+            courseProgressData.filter(
+
+                course =>
+                    course.progress > 0
+
+            ).length;
+
+
+        document.querySelector(
+            ".stat-card:nth-child(2) h2"
+        ).innerText =
+            startedCourses;
+
+
+
+        /* OVERALL PROGRESS */
+
+        const totalProgress =
+            courseProgressData.reduce(
+
+                (total, course) =>
+                    total + course.progress,
+
+                0
+
+            );
+
+
+        const overallProgress =
+            Math.round(
+
+                totalProgress /
+                courseProgressData.length
+
+            );
+
+
+        document.querySelector(
+            ".stat-card:nth-child(3) h2"
+        ).innerText =
+            overallProgress + "%";
+
+
+
+        /* COMPLETED COURSES */
+
+        const completedCourses =
+            courseProgressData.filter(
+
+                course =>
+                    course.progress === 100
+
+            ).length;
+
+
+        document.querySelector(
+            ".stat-card:nth-child(4) h2"
+        ).innerText =
+            completedCourses;
+
+
+    </script>
+
+
+</body>
+
+</html>

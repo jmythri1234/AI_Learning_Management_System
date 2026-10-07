@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Artificial Intelligence - AI Learn</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        nav {
+            background: #111827;
+            color: white;
+            padding: 16px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .header {
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #2563eb
+            );
+            color: white;
+            padding: 45px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+        }
+
+        .progress-container {
+            max-width: 1100px;
+            margin: 25px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #7c3aed;
+            transition: 0.4s;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .learning-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+        }
+
+        .lessons {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            height: fit-content;
+        }
+
+        .lessons h3 {
+            margin-bottom: 15px;
+            color: #7c3aed;
+        }
+
+        .lesson-btn {
+            width: 100%;
+            border: none;
+            background: #f3f4f6;
+            padding: 13px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .lesson-btn:hover {
+            background: #ede9fe;
+        }
+
+        .lesson-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            min-height: 450px;
+        }
+
+        .lesson-content h2 {
+            color: #7c3aed;
+            margin-bottom: 20px;
+        }
+
+        .lesson-content p {
+            line-height: 1.7;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+
+        .code-box {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+
+        .complete-btn {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        .complete-btn:hover {
+            background: #6d28d9;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .navigation button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .navigation button:hover {
+            background: #1d4ed8;
+        }
+
+        .quiz-question {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            background: #f9fafb;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        .quiz-option:hover {
+            background: #ede9fe;
+        }
+
+        .quiz-option:disabled {
+            cursor: not-allowed;
+        }
+
+        .quiz-result {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .completion {
+            margin-top: 25px;
+            padding: 25px;
+            background: #f5f3ff;
+            border: 2px solid #7c3aed;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .completion h2 {
+            color: #7c3aed;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav a {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .learning-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-content {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<nav>
+
+    <h2>🤖 AI Learn</h2>
+
+    <div>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+    </div>
+
+</nav>
+
+
+<section class="header">
+
+    <h1>
+        🤖 Artificial Intelligence
+    </h1>
+
+    <p>
+        Learn the fundamentals of AI,
+        intelligent systems and real-world applications.
+    </p>
+
+</section>
+
+
+<div class="progress-container">
+
+    <div class="progress-info">
+
+        <span>
+            Course Progress
+        </span>
+
+        <span id="progressText">
+            0%
+        </span>
+
+    </div>
+
+    <div class="progress-bar">
+
+        <div
+            class="progress-fill"
+            id="progressFill">
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <div class="learning-layout">
+
+
+        <div class="lessons">
+
+            <h3>
+                📚 Lessons
+            </h3>
+
+
+            <button
+                class="lesson-btn"
+                onclick="showLesson(0)">
+
+                1. Introduction to AI
+
+            </button>
+
+
+            <button
+                class="lesson-btn"
+                onclick="showLesson(1)">
+
+                2. AI Types
+
+            </button>
+
+
+            <button
+                class="lesson-btn"
+                onclick="showLesson(2)">
+
+                3. Intelligent Agents
+
+            </button>
+
+
+            <button
+                class="lesson-btn"
+                onclick="showLesson(3)">
+
+                4. Machine Learning and AI
+
+            </button>
+
+
+            <button
+                class="lesson-btn"
+                onclick="showLesson(4)">
+
+                5. Neural Networks
+
+            </button>
+
+
+            <button
+                class="lesson-btn"
+                onclick="showLesson(5)">
+
+                6. Natural Language Processing
+
+            </button>
+
+
+            <button
+                class="lesson-btn"
+                onclick="showLesson(6)">
+
+                7. AI Applications
+
+            </button>
+
+
+            <button
+                class="lesson-btn"
+                onclick="showLesson(7)">
+
+                8. AI Quiz
+
+            </button>
+
+        </div>
+
+
+        <div class="lesson-content">
+
+            <h2 id="lessonTitle">
+                Introduction to AI
+            </h2>
+
+
+            <div id="lessonContent">
+            </div>
+
+
+            <div class="navigation">
+
+                <button
+                    id="previousBtn"
+                    onclick="previousLesson()">
+
+                    ⬅️ Previous
+
+                </button>
+
+
+                <button
+                    id="nextBtn"
+                    onclick="nextLesson()">
+
+                    Next ➡️
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+const lessons = [
+
+    {
+        title: "Introduction to Artificial Intelligence",
+
+        content: `
+
+            <p>
+                Artificial Intelligence, commonly called AI,
+                is a branch of computer science that focuses
+                on creating systems that can perform tasks
+                that normally require human intelligence.
+            </p>
+
+            <p>
+                AI systems can learn, reason, understand
+                language, recognize images, and make decisions.
+            </p>
+
+            <div class="code-box">
+
+                Examples of AI:<br><br>
+
+                🤖 Chatbots<br>
+
+                🗣️ Voice Assistants<br>
+
+                🚗 Self-Driving Systems<br>
+
+                🖼️ Image Recognition
+
+            </div>
+
+        `
+    },
+
+
+    {
+        title: "Types of Artificial Intelligence",
+
+        content: `
+
+            <p>
+                Artificial Intelligence can be classified
+                into different types based on its capabilities.
+            </p>
+
+            <p>
+                Narrow AI is designed to perform a specific
+                task, such as voice recognition or
+                recommendation systems.
+            </p>
+
+            <p>
+                General AI refers to a theoretical system
+                that can perform many intellectual tasks
+                like a human.
+            </p>
+
+            <div class="code-box">
+
+                Types of AI:<br><br>
+
+                1. Narrow AI<br>
+
+                2. General AI<br>
+
+                3. Super AI
+
+            </div>
+
+        `
+    },
+
+
+    {
+        title: "Intelligent Agents",
+
+        content: `
+
+            <p>
+                An intelligent agent is a system that
+                observes its environment and takes actions
+                to achieve a goal.
+            </p>
+
+            <p>
+                Agents use sensors to collect information
+                and actuators to perform actions.
+            </p>
+
+            <div class="code-box">
+
+                Environment<br>
+                ↓<br>
+                Sensors<br>
+                ↓<br>
+                Intelligent Agent<br>
+                ↓<br>
+                Decision<br>
+                ↓<br>
+                Action
+
+            </div>
+
+        `
+    },
+
+
+    {
+        title: "Machine Learning and AI",
+
+        content: `
+
+            <p>
+                Machine Learning is a major part of
+                Artificial Intelligence.
+            </p>
+
+            <p>
+                Machine Learning allows computers to learn
+                patterns from data without being explicitly
+                programmed for every task.
+            </p>
+
+            <div class="code-box">
+
+                Data<br>
+                ↓<br>
+                Machine Learning Algorithm<br>
+                ↓<br>
+                Training<br>
+                ↓<br>
+                Model<br>
+                ↓<br>
+                Prediction
+
+            </div>
+
+        `
+    },
+
+
+    {
+        title: "Neural Networks",
+
+        content: `
+
+            <p>
+                Neural Networks are computing models inspired
+                by the structure of the human brain.
+            </p>
+
+            <p>
+                They contain interconnected nodes called
+                neurons that process information.
+            </p>
+
+            <div class="code-box">
+
+                Input Layer<br>
+                ↓<br>
+                Hidden Layer<br>
+                ↓<br>
+                Hidden Layer<br>
+                ↓<br>
+                Output Layer
+
+            </div>
+
+            <p>
+                Neural networks are widely used in image
+                recognition, speech processing and prediction.
+            </p>
+
+        `
+    },
+
+
+    {
+        title: "Natural Language Processing",
+
+        content: `
+
+            <p>
+                Natural Language Processing, or NLP,
+                helps computers understand and process
+                human language.
+            </p>
+
+            <p>
+                NLP is used in chatbots, translation systems,
+                voice assistants and text analysis.
+            </p>
+
+            <div class="code-box">
+
+                NLP Applications:<br><br>
+
+                🗣️ Speech Recognition<br>
+
+                💬 Chatbots<br>
+
+                🌐 Language Translation<br>
+
+                📝 Text Analysis
+
+            </div>
+
+        `
+    },
+
+
+    {
+        title: "AI Applications",
+
+        content: `
+
+            <p>
+                Artificial Intelligence is used in many
+                real-world industries and applications.
+            </p>
+
+            <div class="code-box">
+
+                Healthcare → Disease Detection<br><br>
+
+                Education → AI Tutors<br><br>
+
+                Banking → Fraud Detection<br><br>
+
+                Transportation → Autonomous Vehicles<br><br>
+
+                Entertainment → Recommendation Systems
+
+            </div>
+
+            <p>
+                AI continues to grow and is becoming an
+                important technology in modern industries.
+            </p>
+
+        `
+    }
+
+];
+
+
+const quizQuestions = [
+
+    {
+        question:
+            "What does AI stand for?",
+
+        options: [
+            "Automated Internet",
+            "Artificial Intelligence",
+            "Advanced Information",
+            "Application Interface"
+        ],
+
+        answer: 1
+
+    },
+
+
+    {
+        question:
+            "Which is a branch of Artificial Intelligence?",
+
+        options: [
+            "Machine Learning",
+            "HTML",
+            "CSS",
+            "Database"
+        ],
+
+        answer: 0
+
+    },
+
+
+    {
+        question:
+            "What does NLP help computers understand?",
+
+        options: [
+            "Electricity",
+            "Human language",
+            "Computer hardware",
+            "Network cables"
+        ],
+
+        answer: 1
+
+    },
+
+
+    {
+        question:
+            "Which technology is inspired by the human brain?",
+
+        options: [
+            "Database",
+            "Neural Network",
+            "HTML",
+            "Operating System"
+        ],
+
+        answer: 1
+
+    },
+
+
+    {
+        question:
+            "Which is an application of AI?",
+
+        options: [
+            "Fraud Detection",
+            "Keyboard Cleaning",
+            "Screen Repair",
+            "Cable Connection"
+        ],
+
+        answer: 0
+
+    }
+
+];
+
+
+let currentLesson = 0;
+
+let completedLessons =
+    JSON.parse(
+        localStorage.getItem(
+            "aiCompletedLessons"
+        )
+    ) || [];
+
+
+let currentQuizQuestion = 0;
+
+let quizScore = 0;
+
+
+function showLesson(index) {
+
+    currentLesson = index;
+
+
+    const lessonTitle =
+        document.getElementById(
+            "lessonTitle"
+        );
+
+
+    const lessonContent =
+        document.getElementById(
+            "lessonContent"
+        );
+
+
+    if (index === 7) {
+
+        showQuiz();
+
+        updateNavigation();
+
+        return;
+
+    }
+
+
+    lessonTitle.innerText =
+        lessons[index].title;
+
+
+    lessonContent.innerHTML =
+        lessons[index].content;
+
+
+    const completeButton =
+        document.createElement("button");
+
+
+    completeButton.className =
+        "complete-btn";
+
+
+    completeButton.innerText =
+        completedLessons.includes(index)
+        ? "✅ Lesson Completed"
+        : "✅ Mark Lesson as Completed";
+
+
+    completeButton.onclick =
+        markCompleted;
+
+
+    lessonContent.appendChild(
+        completeButton
+    );
+
+
+    updateNavigation();
+
+}
+
+
+function markCompleted() {
+
+    if (
+        !completedLessons.includes(
+            currentLesson
+        )
+    ) {
+
+        completedLessons.push(
+            currentLesson
+        );
+
+
+        localStorage.setItem(
+            "aiCompletedLessons",
+            JSON.stringify(
+                completedLessons
+            )
+        );
+
+    }
+
+
+    showLesson(currentLesson);
+
+    updateProgress();
+
+}
+
+
+function updateNavigation() {
+
+    const previousBtn =
+        document.getElementById(
+            "previousBtn"
+        );
+
+
+    const nextBtn =
+        document.getElementById(
+            "nextBtn"
+        );
+
+
+    previousBtn.style.display =
+        currentLesson === 0
+        ? "none"
+        : "inline-block";
+
+
+    nextBtn.style.display =
+        currentLesson === 7
+        ? "none"
+        : "inline-block";
+
+}
+
+
+function previousLesson() {
+
+    if (currentLesson > 0) {
+
+        showLesson(
+            currentLesson - 1
+        );
+
+    }
+
+}
+
+
+function nextLesson() {
+
+    if (currentLesson < 7) {
+
+        showLesson(
+            currentLesson + 1
+        );
+
+    }
+
+}
+
+
+function updateProgress() {
+
+    const completed =
+        completedLessons.length;
+
+
+    const percentage =
+        Math.round(
+            (completed / 7) * 100
+        );
+
+
+    document.getElementById(
+        "progressText"
+    ).innerText =
+        percentage + "%";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percentage + "%";
+
+}
+
+
+function showQuiz() {
+
+    const lessonTitle =
+        document.getElementById(
+            "lessonTitle"
+        );
+
+
+    const lessonContent =
+        document.getElementById(
+            "lessonContent"
+        );
+
+
+    lessonTitle.innerText =
+        "📝 Artificial Intelligence Quiz";
+
+
+    lessonContent.innerHTML = `
+
+        <div class="quiz-question"
+             id="quizQuestion">
+        </div>
+
+        <div id="quizOptions">
+        </div>
+
+        <button
+            id="nextQuizBtn"
+            class="complete-btn"
+            onclick="nextQuizQuestion()">
+
+            Next Question ➡️
+
+        </button>
+
+        <div
+            id="quizResult"
+            class="quiz-result">
+        </div>
+
+    `;
+
+
+    currentQuizQuestion = 0;
+
+    quizScore = 0;
+
+
+    loadQuizQuestion();
+
+}
+
+
+function loadQuizQuestion() {
+
+    const question =
+        quizQuestions[
+            currentQuizQuestion
+        ];
+
+
+    document.getElementById(
+        "quizQuestion"
+    ).innerText =
+        (
+            currentQuizQuestion + 1
+        ) +
+        ". " +
+        question.question;
+
+
+    const optionsContainer =
+        document.getElementById(
+            "quizOptions"
+        );
+
+
+    optionsContainer.innerHTML = "";
+
+
+    question.options.forEach(
+        (option, index) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "quiz-option";
+
+
+            button.innerText =
+                option;
+
+
+            button.onclick =
+                () => checkQuizAnswer(
+                    index
+                );
+
+
+            optionsContainer.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "nextQuizBtn"
+    ).style.display =
+        "none";
+
+}
+
+
+function checkQuizAnswer(
+    selectedAnswer
+) {
+
+    const question =
+        quizQuestions[
+            currentQuizQuestion
+        ];
+
+
+    const options =
+        document.querySelectorAll(
+            ".quiz-option"
+        );
+
+
+    options.forEach(
+        button => {
+
+            button.disabled = true;
+
+        }
+    );
+
+
+    if (
+        selectedAnswer ===
+    question.answer
+) {
+
+    quizScore++;
+
+
+    options[
+        selectedAnswer
+    ].innerText +=
+        " ✅";
+
+}
+
+else {
+
+    options[
+        selectedAnswer
+    ].innerText +=
+        " ❌";
+
+
+    options[
+        question.answer
+    ].innerText +=
+        " ✅";
+
+}
+
+
+document.getElementById(
+    "nextQuizBtn"
+).style.display =
+    "inline-block";
+
+}
+
+
+function nextQuizQuestion() {
+
+    currentQuizQuestion++;
+
+
+    if (
+        currentQuizQuestion <
+        quizQuestions.length
+    ) {
+
+        loadQuizQuestion();
+
+    }
+
+    else {
+
+        showQuizResult();
+
+    }
+
+}
+
+
+function showQuizResult() {
+
+    document.getElementById(
+        "quizQuestion"
+    ).innerText =
+        "🎉 Quiz Completed!";
+
+
+    document.getElementById(
+        "quizOptions"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "nextQuizBtn"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "quizResult"
+    ).innerHTML = `
+
+        <h2>
+            Your Score:
+            ${quizScore} /
+            ${quizQuestions.length}
+        </h2>
+
+        <p>
+            ${
+                quizScore ===
+                quizQuestions.length
+
+                ? "🏆 Excellent! You got all answers correct!"
+
+                : "👍 Good job! Keep practicing."
+            }
+        </p>
+
+
+        ${
+            quizScore ===
+            quizQuestions.length
+
+            ? `
+
+                <div class="completion">
+
+                    <h2>
+                        🎉 Congratulations!
+                    </h2>
+
+                    <h3>
+                        Artificial Intelligence
+                        Course Completed!
+                    </h3>
+
+                    <p>
+                        You have successfully
+                        completed all lessons
+                        and the quiz. 🏆
+                    </p>
+
+                </div>
+
+              `
+
+            : ""
+
+        }
+
+
+        <button
+            class="complete-btn"
+            onclick="restartQuiz()">
+
+            🔄 Try Again
+
+        </button>
+
+    `;
+
+
+    localStorage.setItem(
+        "aiCourseCompleted",
+        "true"
+    );
+
+}
+
+
+function restartQuiz() {
+
+    currentQuizQuestion = 0;
+
+    quizScore = 0;
+
+
+    document.getElementById(
+        "quizResult"
+    ).innerHTML = "";
+
+
+    loadQuizQuestion();
+
+}
+
+
+showLesson(0);
+
+updateProgress();
+
+</script>
+
+
+</body>
+
+</html>
